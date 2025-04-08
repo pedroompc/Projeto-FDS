@@ -6,4 +6,5 @@ urlpatterns = [
     path('', transacoes_views.home, name='home'),
     path('admin/', admin.site.urls),
     path('transacoes/', include('transacoes.urls')),
+    path('user/', include('user.urls')),  
 ]
