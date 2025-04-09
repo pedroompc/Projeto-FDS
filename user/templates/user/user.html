@@ -1,16 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style-aluno.css') }}">
-    <title>Login Aluno</title>
+    <link rel="stylesheet" href="{% static 'user/style-user.css' %}">
+    
+    <title>Login</title>
 </head>
 <body>
     <div class="main-login">
         <div class="left-login">
-            <h1>Faça login<br>do estudante</h1>
-            <img src="{{ url_for('static', filename='estudante.svg') }}" class="left-login-img" alt="estudante">
+            <h1>Faça login<br>Para continuar</h1>
+            <img src="{% static 'C:\Users\gabri\Desktop\OurBank\Projeto-FDS\user\static\user\estudante.svg' %}" alt="Estudante">
         </div>
         <div class="right-login">
             <div class="card-login">
