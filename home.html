@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>OurBank - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #ffffff;
+            color: #111;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-weight: bold;
+            color: #ff6a00;
+            font-size: 1.5rem;
+        }
+
+        nav a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            color: black;
+            font-weight: 500;
+        }
+
+        .btn-laranja {
+            background-color: #ff6a00;
+            color: white;
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">OurBank</div>
+        <nav>
+            <a href="#">Finanças</a>
+            <a href="#">Transações</a>
+            <a href="#">Sobre</a>
+            <a href="#">Ajuda</a>
+            <a href="{% url 'user' %}" class="btn-laranja">Acesse sua conta</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Bem-vindo à Home!</h1>
+        <p>Clique abaixo para realizar uma transferência via PIX:</p>
+        <a href="{% url 'user' %}" class="btn-laranja">Cadastre-se</a>
+    </main>
+</body>
+</html>
