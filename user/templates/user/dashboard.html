@@ -1,0 +1,144 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Dashboard - OurBank{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h2>Olá, {{ user.username }}!</h2>
+            <p class="lead">Bem-vindo ao seu Dashboard</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <p class="mb-0">Tipo de conta: <span class="badge bg-primary">{{ perfil.get_tipo_conta_display }}</span></p>
+            <h3 class="mb-0">Saldo: <span id="saldo-atual" data-value="{{ perfil.saldo }}" class="{% if perfil.saldo < 0 %}text-danger{% else %}text-success{% endif %}">R$ {{ perfil.saldo }}</span></h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card dashboard-card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-exchange-alt dashboard-icon"></i>
+                        <h5 class="card-title">Transferências</h5>
+                        <p class="card-text">Realize transferências via PIX, TED ou DOC para qualquer conta.</p>
+                        <a href="{% url 'nova_transferencia' %}" class="btn btn-primary dashboard-action-btn">Nova Transferência</a>
+                        <a href="{% url 'transferencias' %}" class="btn btn-outline-secondary dashboard-action-btn mt-2">Ver Histórico</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card dashboard-card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-credit-card dashboard-icon"></i>
+                        <h5 class="card-title">Cartões</h5>
+                        <p class="card-text">Visualize seus cartões, limites e faturas atuais.</p>
+                        <a href="{% url 'cartoes' %}" class="btn btn-primary dashboard-action-btn">Meus Cartões</a>
+                        <a href="{% url 'faturas' %}" class="btn btn-outline-secondary dashboard-action-btn mt-2">Ver Faturas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card dashboard-card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line dashboard-icon"></i>
+                        <h5 class="card-title">Investimentos</h5>
+                        <p class="card-text">Invista seu dinheiro e acompanhe seus rendimentos.</p>
+                        <a href="{% url 'novo_investimento' %}" class="btn btn-primary dashboard-action-btn">Novo Investimento</a>
+                        <a href="{% url 'investimentos' %}" class="btn btn-outline-secondary dashboard-action-btn mt-2">Meus Investimentos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Últimas Transações</h5>
+                    <a href="{% url 'transferencias' %}" class="btn btn-sm btn-outline-primary">Ver Todas</a>
+                </div>
+                <div class="card-body">
+                    <div class="recent-transactions">
+                        {% if user.transferencias_enviadas.all or user.transferencias_recebidas.all %}
+                            {% for transferencia in user.transferencias_enviadas.all|slice:":5" %}
+                            <div class="transaction-item">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="transaction-description">Transferência para {{ transferencia.destinatario.username }}</div>
+                                        <div class="transaction-date">{{ transferencia.data|date:"d/m/Y H:i" }}</div>
+                                    </div>
+                                    <div class="transaction-amount transaction-negative">- R$ {{ transferencia.valor }}</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% for transferencia in user.transferencias_recebidas.all|slice:":5" %}
+                            <div class="transaction-item">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="transaction-description">Recebido de {{ transferencia.remetente.username }}</div>
+                                        <div class="transaction-date">{{ transferencia.data|date:"d/m/Y H:i" }}</div>
+                                    </div>
+                                    <div class="transaction-amount transaction-positive">+ R$ {{ transferencia.valor }}</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>Nenhuma transação encontrada
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card balance-card mb-4">
+                <div class="balance-label">Saldo Disponível</div>
+                <div class="balance-amount">R$ {{ perfil.saldo }}</div>
+                <div class="quick-actions">
+                    <a href="{% url 'nova_transferencia' %}" class="quick-action-btn">
+                        <i class="fas fa-paper-plane me-2"></i>Transferir
+                    </a>
+                    <a href="{% url 'novo_investimento' %}" class="quick-action-btn">
+                        <i class="fas fa-piggy-bank me-2"></i>Investir
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">Dicas Financeiras</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>Dica:</strong> Investir na poupança é uma forma segura de guardar dinheiro, mas existem opções com melhor rendimento.
+                    </div>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Atenção:</strong> Mantenha sempre um valor de emergência equivalente a 6 meses de despesas.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
