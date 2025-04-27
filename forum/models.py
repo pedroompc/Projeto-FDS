@@ -1,37 +1,29 @@
 from django.db import models
 
-# Create your models here.
-import datetime
-from django.utils import timezone
-
-
-class Pergunta(models.Model):
-    titulo = models.CharField(max_length=200, null=False)
-    detalhe = models.TextField(null=False)
-    tentativa = models.TextField()
-    data_criacao = models.DateTimeField("Criado em ")
-    usuario = models.CharField(max_length=200, null=False, default="anônimo")
-
+class Topico(models.Model):
+    titulo = models.CharField(max_length=200)
+    descricao = models.TextField()
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    autor = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='topicos')
+    
     def __str__(self):
-        return "[" + str(self.id) + "] " + self.titulo
-   
-    def foi_publicado_recentemente(self):
-        return self.created_date >= timezone.now() - datetime.timedelta(days=1)
+        return self.titulo
+    
+    class Meta:
+        verbose_name = 'Tópico'
+        verbose_name_plural = 'Tópicos'
+        ordering = ['-data_criacao']
 
-    def string_detalhada(self):
-        return "id: " + str(self.id) + "; titulo: " + self.titulo + "; detalhe: " + self.detalhe + "; tentativa: " + self.tentativa + "; data criação: " + str(self.data_criacao) + "; usuario: " + self.usuario
-
-
-class Resposta(models.Model):
-    pergunta = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
-    texto = models.TextField(null=False)
-    votos = models.IntegerField(default=0)
-    data_criacao = models.DateTimeField("Criado em ")
-    usuario = models.CharField(max_length=200, null=False, default="anônimo")
-
-
+class Comentario(models.Model):
+    topico = models.ForeignKey(Topico, on_delete=models.CASCADE, related_name='comentarios')
+    texto = models.TextField()
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    autor = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='comentarios')
+    
     def __str__(self):
-        return "[" + str(self.id) + "] " + self.texto
-   
-    def foi_publicado_recentemente(self):
-        return self.created_date >= timezone.now() - datetime.timedelta(days=1)
+        return f'Comentário de {self.autor.username} em {self.topico.titulo}'
+    
+    class Meta:
+        verbose_name = 'Comentário'
+        verbose_name_plural = 'Comentários'
+        ordering = ['data_criacao']

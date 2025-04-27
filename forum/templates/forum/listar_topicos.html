@@ -1,0 +1,59 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Fórum - OurBank{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Fórum de Discussão</h2>
+    </div>
+    <div class="col-md-4 text-md-end">
+        <a href="{% url 'novo_topico' %}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Novo Tópico
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {% if topicos %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Autor</th>
+                                <th>Data</th>
+                                <th>Comentários</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for topico in topicos %}
+                            <tr>
+                                <td>{{ topico.titulo }}</td>
+                                <td>{{ topico.autor.username }}</td>
+                                <td>{{ topico.data_criacao|date:"d/m/Y H:i" }}</td>
+                                <td>{{ topico.comentarios.count }}</td>
+                                <td>
+                                    <a href="{% url 'detalhe_topico' topico.id %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>Não há tópicos no fórum. Seja o primeiro a criar um!
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
