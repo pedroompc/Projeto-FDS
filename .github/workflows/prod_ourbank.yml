@@ -81,4 +81,18 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r Projeto-FDS/requirements.txt
+
+      - name: Cleaning testing files
+        run: |
+          cd Projeto-FDS/
+          rm db.sqlite3
+          rm .env
+          cd ..
+
+      - name: Zip artifact for deployment
+        run: |
+          cd Projeto-FDS/
+          zip release.zip ./* -r
+          cd ..
+          mv Projeto-FDS/release.zip .
           
