@@ -1,4 +1,4 @@
-name: Build and deploy Python app to Azure Web App - Ourbank
+name: Build and deploy Python app to Azure Web App - Projeto-FDS
 
 on:
   push:
@@ -18,35 +18,33 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.13'
 
       - name: Create and start virtual environment
         run: |
           python -m venv venv
-          echo "VIRTUAL_ENV=$(pwd)/venv" >> $GITHUB_ENV
-          echo "$(pwd)/venv/bin" >> $GITHUB_PATH
+          source venv/bin/activate
       
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        run: pip install -r requirements.txt
         
-      # Coleta de arquivos estáticos para Django
-      - name: Collect static files
+      - name: Cleaning testing files
         run: |
-          if [ -f manage.py ]; then python manage.py collectstatic --noinput; fi
-        
+          rm -f db.sqlite3
+
+
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
-        run: |
-          zip -r release.zip . -x "venv/*" -x ".git/*" -x "__pycache__/*" -x "*.pyc"
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: release.zip
+          path: |
+            release.zip
+            !venv/
 
   deploy:
     runs-on: ubuntu-latest
@@ -66,17 +64,18 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
+
       
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5A89125A0F8447169D05DBACA9F05DDF }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_702EDB95A98644F0BEA4E7EF76482391 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_62DADD52245D417294192B0EAE0C96BF }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D0B8CDC80D5440CDA44D2661092C60A2 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D29575A19C6A46FB9F412F242BD68EDF }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_789DF1555AF44DC9AAC33B89E3023F12 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'Ourbank'
+          app-name: 'Projeto-FDS'
           slot-name: 'Production'
