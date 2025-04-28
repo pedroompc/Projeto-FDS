@@ -23,4 +23,3 @@ urlpatterns = [
     path('transacoes/', include('transacoes.urls')),
     path('forum/', include('forum.urls')),
 ]
-;'
