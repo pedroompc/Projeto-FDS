@@ -2,3 +2,7 @@ distlib==0.3.9
 filelock==3.17.0
 platformdirs==4.3.6
 virtualenv==20.29.2
+python-dotenv
+psycopg2-binary
+gunicorn
+whitenoise
