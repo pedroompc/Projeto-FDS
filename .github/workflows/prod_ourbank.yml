@@ -78,4 +78,7 @@ jobs:
         with:
           app-name: 'Ourbank'
           slot-name: 'Production'
+
+      - name: Install dependencies
+        run: pip install -r Projeto-FDS/requirements.txt
           
