@@ -12,6 +12,11 @@ jobs:
     permissions:
       contents: read #This is required for actions/checkout
 
+    # Define o diretório de trabalho padrão para todos os passos neste job
+    defaults:
+      run:
+        working-directory: .
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,6 +24,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
+      # Passo de depuração para verificar a estrutura de diretórios
+      - name: List files in workspace
+        run: ls -la
 
       - name: Create and start virtual environment
         run: |
