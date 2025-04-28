@@ -12,11 +12,6 @@ jobs:
     permissions:
       contents: read #This is required for actions/checkout
 
-    # Define o diretório de trabalho padrão para todos os passos neste job
-    defaults:
-      run:
-        working-directory: .
-
     steps:
       - uses: actions/checkout@v4
 
@@ -26,27 +21,31 @@ jobs:
           python-version: '3.10'
 
       # Passo de depuração para verificar a estrutura de diretórios
-      - name: List files in workspace
-        run: ls -la
-
-      - name: Create and start virtual environment
+      - name: Debug - List files and directories
         run: |
-          python -m venv venv
-          echo "VIRTUAL_ENV=$(pwd)/venv" >> $GITHUB_ENV
-          echo "$(pwd)/venv/bin" >> $GITHUB_PATH
-      
-      - name: Install dependencies
+          echo "Current directory: $(pwd)"
+          echo "Python location: $(which python)"
+          echo "Python version: $(python --version)"
+          ls -la
+
+      # Abordagem alternativa para criar o ambiente virtual
+      - name: Create virtual environment
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install virtualenv
+          virtualenv venv
+          
+      # Instalação de dependências sem ativar o ambiente virtual
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
         
       # Coleta de arquivos estáticos para Django
       - name: Collect static files
         run: |
           if [ -f manage.py ]; then python manage.py collectstatic --noinput; fi
         
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-
+      # Zip artifact for deployment
       - name: Zip artifact for deployment
         run: |
           zip -r release.zip . -x "venv/*" -x ".git/*" -x "__pycache__/*" -x "*.pyc"
