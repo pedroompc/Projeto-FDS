@@ -81,6 +81,6 @@ jobs:
       - name: Run migrations
         run: |
           python manage.py migrate
-          working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}
 
           
