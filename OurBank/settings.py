@@ -27,8 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-_t6o_h8vlsl2_r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['ourbank-hmbycrezencfbqh8.brazilsouth-01.azurewebsites.net/', 'localhost', '169.254.129.4']
-
+ALLOWED_HOSTS = ['ourbank-hmbycrezencfbqh8.brazilsouth-01.azurewebsites.net', 'localhost', '169.254.129.4']
 
 # Application definition
 
