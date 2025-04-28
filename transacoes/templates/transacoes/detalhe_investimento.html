@@ -1,0 +1,222 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Detalhe do Investimento - OurBank{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>{{ investimento.get_tipo_display }}</h2>
+    </div>
+    <div class="col-md-4 text-md-end">
+        <a href="{% url 'investimentos' %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Voltar para Investimentos
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Informações do Investimento</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <p class="mb-1 text-muted">Tipo</p>
+                    <h5>{{ investimento.get_tipo_display }}</h5>
+                </div>
+                <div class="mb-3">
+                    <p class="mb-1 text-muted">Data de Início</p>
+                    <h5>{{ investimento.data_inicio|date:"d/m/Y" }}</h5>
+                </div>
+                <div class="mb-3">
+                    <p class="mb-1 text-muted">Rendimento</p>
+                    <h5>{{ investimento.rendimento }}% ao ano</h5>
+                </div>
+                <div class="mb-3">
+                    <p class="mb-1 text-muted">Status</p>
+                    <h5>
+                        <span class="badge {% if investimento.ativo %}bg-success{% else %}bg-danger{% endif %}">
+                            {% if investimento.ativo %}Ativo{% else %}Encerrado{% endif %}
+                        </span>
+                    </h5>
+                </div>
+                {% if investimento.data_resgate %}
+                <div class="mb-3">
+                    <p class="mb-1 text-muted">Data de Resgate</p>
+                    <h5>{{ investimento.data_resgate|date:"d/m/Y" }}</h5>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Valores</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4 text-center mb-3 mb-md-0">
+                        <h6 class="text-muted">Valor Investido</h6>
+                        <h3 class="mb-0">R$ {{ investimento.valor_investido }}</h3>
+                    </div>
+                    <div class="col-md-4 text-center mb-3 mb-md-0">
+                        <h6 class="text-muted">Valor Atual</h6>
+                        <h3 class="mb-0 text-success">R$ {{ investimento.valor_atual }}</h3>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h6 class="text-muted">Disponível para Resgate</h6>
+                        <h3 class="mb-0 text-primary">R$ {{ investimento.valor_resgate }}</h3>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h5 class="text-muted mb-3">Rendimento Acumulado</h5>
+                    <div class="progress" style="height: 25px;">
+                        {% with rendimento=investimento.valor_atual|sub:investimento.valor_investido %}
+                        {% with percentual=rendimento|div:investimento.valor_investido|mul:100 %}
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ percentual }}%;" 
+                             aria-valuenow="{{ percentual }}" aria-valuemin="0" aria-valuemax="100">
+                            {{ percentual|floatformat:2 }}%
+                        </div>
+                        {% endwith %}
+                        {% endwith %}
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h5 class="text-muted mb-3">Gráfico de Evolução</h5>
+                    <canvas id="evolucaoChart" height="250"></canvas>
+                </div>
+                
+                {% if investimento.ativo %}
+                <div class="d-grid">
+                    <button class="btn btn-outline-primary" disabled>
+                        <i class="fas fa-money-bill-wave me-2"></i>Solicitar Resgate
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Histórico do Investimento</h5>
+    </div>
+    <div class="card-body">
+        {% if historico %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th>Variação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registro in historico %}
+                    <tr>
+                        <td>{{ registro.data|date:"d/m/Y" }}</td>
+                        <td>R$ {{ registro.valor }}</td>
+                        <td>
+                            {% if forloop.counter0 > 0 %}
+                                {% with anterior=historico|get_item:forloop.counter0|add:-1 %}
+                                {% with variacao=registro.valor|sub:anterior.valor %}
+                                {% with percentual=variacao|div:anterior.valor|mul:100 %}
+                                    <span class="{% if variacao >= 0 %}text-success{% else %}text-danger{% endif %}">
+                                        {% if variacao >= 0 %}+{% endif %}{{ percentual|floatformat:2 }}%
+                                    </span>
+                                {% endwith %}
+                                {% endwith %}
+                                {% endwith %}
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>Não há histórico disponível para este investimento.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Filtros personalizados para os cálculos
+    function sub(a, b) {
+        return parseFloat(a) - parseFloat(b);
+    }
+    
+    function div(a, b) {
+        return parseFloat(a) / parseFloat(b);
+    }
+    
+    function mul(a, b) {
+        return parseFloat(a) * parseFloat(b);
+    }
+    
+    // Função para acessar item de lista por índice
+    function get_item(list, index) {
+        return list[index];
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dados para o gráfico de evolução
+        const historico = [
+            {% for registro in historico %}
+            {
+                data: '{{ registro.data|date:"d/m/Y" }}',
+                valor: {{ registro.valor }}
+            },
+            {% endfor %}
+        ];
+        
+        // Preparar dados para o gráfico
+        const labels = historico.map(h => h.data);
+        const valores = historico.map(h => h.valor);
+        
+        // Criar gráfico
+        const ctx = document.getElementById('evolucaoChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Valor do Investimento',
+                    data: valores,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    tension: 0.1,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            callback: function(value) {
+                                return 'R$ ' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

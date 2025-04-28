@@ -1,0 +1,83 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Meus Cartões - OurBank{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Meus Cartões</h2>
+    </div>
+</div>
+
+<div class="row">
+    {% if cartoes %}
+        {% for cartao in cartoes %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Cartão final {{ cartao.numero|slice:"-4:" }}</h5>
+                    <span class="badge bg-light text-dark">
+                        {% if cartao.ativo %}Ativo{% else %}Inativo{% endif %}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Limite Total:</span>
+                            <span class="fw-bold">R$ {{ cartao.limite }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Limite Disponível:</span>
+                            <span class="fw-bold text-success">R$ {{ cartao.limite_disponivel }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Fatura Atual:</span>
+                            <span class="fw-bold text-danger">R$ {{ cartao.limite|sub:cartao.limite_disponivel }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress mb-3" style="height: 10px;">
+                        {% with utilizado=cartao.limite|sub:cartao.limite_disponivel %}
+                        {% with percentual=utilizado|div:cartao.limite|mul:100 %}
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ percentual }}%;" 
+                             aria-valuenow="{{ percentual }}" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                        {% endwith %}
+                        {% endwith %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        <a href="{% url 'detalhe_cartao' cartao.id %}" class="btn btn-outline-primary">
+                            <i class="fas fa-eye me-2"></i>Ver Detalhes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>Você ainda não possui cartões cadastrados.
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Filtros personalizados para os cálculos na barra de progresso
+    function sub(a, b) {
+        return parseFloat(a) - parseFloat(b);
+    }
+    
+    function div(a, b) {
+        return parseFloat(a) / parseFloat(b);
+    }
+    
+    function mul(a, b) {
+        return parseFloat(a) * parseFloat(b);
+    }
+</script>
+{% endblock %}
