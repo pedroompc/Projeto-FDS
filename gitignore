@@ -1,0 +1,51 @@
+# Arquivo .gitignore para o projeto Django
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Arquivos de ambiente virtual
+venv/
+ENV/
+
+# Arquivos de banco de dados SQLite
+*.sqlite3
+*.db
+
+# Arquivos de configuração local
+.env
+.env.local
+
+# Arquivos de mídia e estáticos coletados
+/staticfiles/
+/media/
+
+# Arquivos de IDE e editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Arquivos de log
+*.log
+
+# Arquivos específicos do Azure
+.azure/
