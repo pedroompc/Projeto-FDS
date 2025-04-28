@@ -23,20 +23,24 @@ jobs:
       - name: Create and start virtual environment
         run: |
           python -m venv venv
-          source venv/bin/activate
+          echo "VIRTUAL_ENV=$(pwd)/venv" >> $GITHUB_ENV
+          echo "$(pwd)/venv/bin" >> $GITHUB_PATH
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         
       # Coleta de arquivos estáticos para Django
       - name: Collect static files
         run: |
-          python manage.py collectstatic --noinput
+          if [ -f manage.py ]; then python manage.py collectstatic --noinput; fi
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r -x "venv/*" -x ".git/*" -x "__pycache__/*" -x "*.pyc"
+        run: |
+          zip -r release.zip . -x "venv/*" -x ".git/*" -x "__pycache__/*" -x "*.pyc"
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
