@@ -1,0 +1,191 @@
+/* Estilos personalizados para o OurBank */
+
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0dcaf0;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+}
+
+/* Estilos gerais */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f5f5;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Cards personalizados */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  font-weight: 600;
+}
+
+/* Botões personalizados */
+.btn {
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0b5ed7;
+}
+
+/* Efeitos de hover para tabelas */
+.table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Estilos para o dashboard */
+.dashboard-card {
+  height: 100%;
+  min-height: 180px;
+}
+
+.dashboard-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+/* Estilos para cartões bancários */
+.credit-card {
+  background: linear-gradient(135deg, #0a58ca 0%, #0d6efd 100%);
+  color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.credit-card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.credit-card-number {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin: 20px 0;
+}
+
+.credit-card-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Estilos para investimentos */
+.investment-card {
+  border-left: 5px solid var(--success-color);
+}
+
+/* Estilos para transferências */
+.transaction-positive {
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+.transaction-negative {
+  color: var(--danger-color);
+  font-weight: 600;
+}
+
+/* Estilos para o fórum */
+.forum-topic {
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background-color: white;
+  border-left: 5px solid var(--primary-color);
+}
+
+.forum-comment {
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .credit-card {
+    padding: 15px;
+  }
+  
+  .credit-card-number {
+    font-size: 1.2rem;
+  }
+}
+
+/* Estilos para página inicial */
+.hero-section {
+  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+  color: white;
+  padding: 80px 0;
+  margin-bottom: 40px;
+}
+
+/* Estilos para alertas */
+.alert {
+  border-radius: 10px;
+}
+
+/* Estilos para formulários */
+.form-control, .form-select {
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Estilos para badges */
+.badge {
+  padding: 6px 10px;
+  font-weight: 500;
+  border-radius: 5px;
+}
