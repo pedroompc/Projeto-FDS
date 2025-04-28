@@ -78,9 +78,6 @@ jobs:
           slot-name: 'Production'
 
 
-      - name: Run migrations
-        run: |
-          python manage.py migrate
-        working-directory: ${{ github.workspace }}
+
 
           
