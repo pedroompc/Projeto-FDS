@@ -20,9 +20,7 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
+     
       
       - name: Install dependencies
         run: pip install -r requirements.txt
