@@ -44,6 +44,18 @@ jobs:
           path: |
             release.zip
             !venv/
+        
+
+      - name: Cleaning testing files
+        run: |
+          rm db.sqlite3
+
+      - name: Zip artifact for deployment
+        run: |
+          cd Projeto-FDS/
+          zip release.zip ./* -r
+          cd ..
+          mv Projeto-FDS/release.zip .
 
   deploy:
     runs-on: ubuntu-latest
