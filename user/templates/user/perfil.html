@@ -1,0 +1,69 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Perfil - OurBank{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Meu Perfil</h4>
+                <a href="{% url 'editar_perfil' %}" class="btn btn-light btn-sm">
+                    <i class="fas fa-edit me-1"></i>Editar
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4 mb-md-0">
+                        <div class="avatar-container mb-3">
+                            <i class="fas fa-user-circle" style="font-size: 8rem; color: #0d6efd;"></i>
+                        </div>
+                        <h5>{{ user.username }}</h5>
+                        <p class="text-muted">{{ user.email }}</p>
+                        <span class="badge bg-primary">{{ perfil.get_tipo_conta_display }}</span>
+                    </div>
+                    <div class="col-md-8">
+                        <h5 class="border-bottom pb-2">Informações Pessoais</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Nome de Usuário:</div>
+                            <div class="col-md-8">{{ user.username }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Email:</div>
+                            <div class="col-md-8">{{ user.email }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">CPF:</div>
+                            <div class="col-md-8">{{ perfil.cpf }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Data de Nascimento:</div>
+                            <div class="col-md-8">{{ perfil.data_nascimento|date:"d/m/Y" }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Tipo de Conta:</div>
+                            <div class="col-md-8">{{ perfil.get_tipo_conta_display }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Saldo Atual:</div>
+                            <div class="col-md-8 {% if perfil.saldo < 0 %}text-danger{% else %}text-success{% endif %}">
+                                R$ {{ perfil.saldo }}
+                            </div>
+                        </div>
+                        
+                        <h5 class="border-bottom pb-2 mt-4">Ações</h5>
+                        <div class="d-flex flex-wrap gap-2 mt-3">
+                            <a href="{% url 'trocar_conta' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-exchange-alt me-1"></i>Trocar Conta
+                            </a>
+                            <a href="{% url 'editar_perfil' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-edit me-1"></i>Editar Perfil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

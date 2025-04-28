@@ -1,0 +1,39 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Trocar Conta - OurBank{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Trocar Tipo de Conta</h4>
+            </div>
+            <div class="card-body">
+                <p class="mb-3">Você está atualmente usando uma conta <strong>{{ perfil.get_tipo_conta_display }}</strong>.</p>
+                <p class="mb-4">Deseja trocar para uma conta {% if perfil.tipo_conta == 'PESSOAL' %}Empresa{% else %}Pessoal{% endif %}?</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="tipo_conta" class="form-label">Tipo de Conta</label>
+                        <select name="tipo_conta" id="tipo_conta" class="form-select">
+                            <option value="PESSOAL" {% if perfil.tipo_conta == 'EMPRESA' %}selected{% endif %}>Pessoal</option>
+                            <option value="EMPRESA" {% if perfil.tipo_conta == 'PESSOAL' %}selected{% endif %}>Empresa</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Confirme sua senha</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                        <div class="form-text">Por segurança, precisamos confirmar sua senha para trocar o tipo de conta.</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Trocar Conta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
