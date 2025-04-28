@@ -1,4 +1,4 @@
-name: Build and deploy Python app to Azure Web App - Projeto-FDS
+name: Build and deploy Python app to Azure Web App - Ourbank
 
 on:
   push:
@@ -77,5 +77,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'Projeto-FDS'
+          app-name: 'Ourbank'
           slot-name: 'Production'
