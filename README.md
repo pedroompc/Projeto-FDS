@@ -20,7 +20,8 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 - **Eduardo Malheiros** - [emlj@cesar.school](mailto:emlj@cesar.school)  
 - **Pedro Guerra** - [plgg@cesar.school](mailto:plgg@cesar.school)  
 - **Gabriel Assef** - [gan2@cesar.school](mailto:gan2@cesar.school)  
-- **João Pedro** - [jpss2@cesar.school](mailto:jpss2@cesar.school)  
+- **João Pedro** - [jpss2@cesar.school](mailto:jpss2@cesar.school)
+- **Luana Fernandes** - [lmfg2@cesar.school](mailto:lmfg2@cesar.school) 
 
 ## 📌 Entregas ✅  
 
