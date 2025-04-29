@@ -13,9 +13,41 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+# Verifica se está em produção (Azure geralmente define WEBSITE_HOSTNAME) 
+# Ou use a variável TARGET_ENV que você já tem: TARGET_ENV = os.environ.get("TARGET_ENV")
+IS_PRODUCTION = os.environ.get("TARGET_ENV", "").lower().startswith("prod")
+
+if IS_PRODUCTION:
+    # Configuração para PostgreSQL no Azure (lendo das variáveis de ambiente)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('Ourbank'),         # Ex: 'Ourbank'
+            'USER': os.environ.get('stackadmin'),         # Ex: 'stackadmin'
+            'PASSWORD': os.environ.get('ourbank12.'),     # Ex: 'ourbank12.'
+            'HOST': os.environ.get('ourbankservidor.postgres.database.azure.com'),         # Ex: 'ourbankservidor.postgres.database.azure.com'
+            'PORT': os.environ.get('DBPORT', '5432'), # Porta padrão do PostgreSQL
+            'OPTIONS': {
+                'sslmode': 'require', # Geralmente necessário para Azure PostgreSQL
+            },
+        }
+    }
+else:
+    # Configuração para SQLite em desenvolvimento (se necessário)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
