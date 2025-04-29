@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-_t6o_h8vlsl2_r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['ourbank-hmbycrezencfbqh8.brazilsouth-01.azurewebsites.net', 'localhost', '169.254.129.4']
+ALLOWED_HOSTS = ['ourbank-hmbycrezencfbqh8.brazilsouth-01.azurewebsites.net', 'localhost', '127.0.0.1', '169.254.129.4']
 
 AZURE_HOSTNAME = os.environ.get('WEBSITE_HOSTNAME')
 if AZURE_HOSTNAME:
@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
     'forum',
     'transacoes',
     'user',
-    "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
@@ -128,8 +128,12 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configuração do WhiteNoise para compressão e cache
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+    # Mantenha outras configurações de storage se existirem
+}
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
