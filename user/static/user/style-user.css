@@ -78,7 +78,7 @@ body {
 }
 
 .textfield > input::placeholder{
-    color: #f0ffff94;
+    color: #ffffff94;
 }
 .btn-login {
     width: 60%;

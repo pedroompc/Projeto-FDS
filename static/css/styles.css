@@ -1,7 +1,7 @@
 /* Estilos personalizados para o OurBank */
 
 :root {
-  --primary-color: #0d6efd;
+  --primary-color: #138843; /* Verde principal */
   --secondary-color: #6c757d;
   --success-color: #198754;
   --danger-color: #dc3545;
@@ -16,7 +16,9 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #f5f5f5;
 }
-
+.navbar-dark.bg-primary {
+  background-color: #138843 !important; /* Verde */
+}
 .navbar-brand {
   font-weight: 700;
   letter-spacing: 1px;
@@ -52,13 +54,13 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #0b5ed7;
-  border-color: #0b5ed7;
+  background-color: #0f7036; /* Verde escuro */
+  border-color: #0f7036;
 }
 
 /* Efeitos de hover para tabelas */
 .table-hover tbody tr:hover {
-  background-color: rgba(13, 110, 253, 0.05);
+  background-color: rgba(19, 136, 67, 0.05); /* Verde claro */
 }
 
 /* Estilos para o dashboard */
@@ -75,7 +77,7 @@ body {
 
 /* Estilos para cartões bancários */
 .credit-card {
-  background: linear-gradient(135deg, #0a58ca 0%, #0d6efd 100%);
+  background: linear-gradient(135deg, #0f7036 0%, #138843 100%); /* Gradiente verde */
   color: white;
   border-radius: 15px;
   padding: 20px;
@@ -161,7 +163,7 @@ body {
 
 /* Estilos para página inicial */
 .hero-section {
-  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+  background: linear-gradient(135deg, #138843 0%, #0f7036 100%); /* Gradiente verde */
   color: white;
   padding: 80px 0;
   margin-bottom: 40px;
@@ -180,7 +182,7 @@ body {
 
 .form-control:focus, .form-select:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(19, 136, 67, 0.25); /* Verde claro */
 }
 
 /* Estilos para badges */
