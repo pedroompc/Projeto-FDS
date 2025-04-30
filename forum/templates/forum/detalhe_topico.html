@@ -1,0 +1,87 @@
+{% extends 'user/base.html' %}
+
+{% block title %}{{ topico.titulo }} - OurBank{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>{{ topico.titulo }}</h2>
+    </div>
+    <div class="col-md-4 text-md-end">
+        <a href="{% url 'forum' %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Voltar para o Fórum
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-0">Tópico</h5>
+                </div>
+                <div>
+                    <small>Criado por {{ topico.autor.username }} em {{ topico.data_criacao|date:"d/m/Y H:i" }}</small>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    {{ topico.descricao|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Comentários ({{ comentarios.count }})</h5>
+            </div>
+            <div class="card-body">
+                {% if comentarios %}
+                    {% for comentario in comentarios %}
+                    <div class="mb-3 p-3 {% if forloop.counter|divisibleby:2 %}bg-light{% endif %} rounded">
+                        <div class="d-flex justify-content-between mb-2">
+                            <div>
+                                <strong>{{ comentario.autor.username }}</strong>
+                            </div>
+                            <div>
+                                <small class="text-muted">{{ comentario.data_criacao|date:"d/m/Y H:i" }}</small>
+                            </div>
+                        </div>
+                        <div>
+                            {{ comentario.texto|linebreaks }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>Não há comentários neste tópico. Seja o primeiro a comentar!
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Adicionar Comentário</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'adicionar_comentario' topico.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_texto" class="form-label">{{ form.texto.label }}</label>
+                        <textarea name="{{ form.texto.name }}" id="id_texto" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Enviar Comentário</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

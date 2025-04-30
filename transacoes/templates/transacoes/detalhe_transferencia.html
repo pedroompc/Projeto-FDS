@@ -1,0 +1,63 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Detalhes da Transferência - OurBank{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Detalhes da Transferência</h4>
+                <a href="{% url 'transferencias' %}" class="btn btn-light btn-sm">
+                    <i class="fas fa-arrow-left me-1"></i>Voltar
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="text-muted mb-3">Informações Gerais</h5>
+                        <p><strong>Data:</strong> {{ transferencia.data|date:"d/m/Y H:i:s" }}</p>
+                        <p><strong>Tipo:</strong> <span class="badge bg-info">{{ transferencia.tipo }}</span></p>
+                        <p><strong>Valor:</strong> <span class="fw-bold {% if transferencia.remetente == user %}text-danger{% else %}text-success{% endif %}">
+                            {% if transferencia.remetente == user %}-{% else %}+{% endif %} R$ {{ transferencia.valor }}
+                        </span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-muted mb-3">Participantes</h5>
+                        <p><strong>Remetente:</strong> {{ transferencia.remetente.username }}
+                            {% if transferencia.remetente == user %}<span class="badge bg-secondary">Você</span>{% endif %}
+                        </p>
+                        <p><strong>Destinatário:</strong> {{ transferencia.destinatario.username }}
+                            {% if transferencia.destinatario == user %}<span class="badge bg-secondary">Você</span>{% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                {% if transferencia.descricao %}
+                <div class="mb-4">
+                    <h5 class="text-muted mb-2">Descrição</h5>
+                    <div class="p-3 bg-light rounded">
+                        {{ transferencia.descricao }}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="alert alert-info">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-info-circle me-3 fs-4"></i>
+                        <div>
+                            <strong>Informação:</strong> 
+                            Esta transferência foi realizada com sucesso e não pode ser cancelada.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'nova_transferencia' %}" class="btn btn-primary">
+                    <i class="fas fa-plus me-1"></i>Nova Transferência
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

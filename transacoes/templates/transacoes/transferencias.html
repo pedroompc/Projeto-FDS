@@ -1,0 +1,113 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Transferências - OurBank{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Transferências</h2>
+    </div>
+    <div class="col-md-4 text-md-end">
+        <a href="{% url 'nova_transferencia' %}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Nova Transferência
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <ul class="nav nav-tabs mb-4" id="transferenciasTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="enviadas-tab" data-bs-toggle="tab" data-bs-target="#enviadas" type="button" role="tab" aria-controls="enviadas" aria-selected="true">Enviadas</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="recebidas-tab" data-bs-toggle="tab" data-bs-target="#recebidas" type="button" role="tab" aria-controls="recebidas" aria-selected="false">Recebidas</button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="transferenciasTabContent">
+            <div class="tab-pane fade show active" id="enviadas" role="tabpanel" aria-labelledby="enviadas-tab">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        {% if transferencias_enviadas %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Destinatário</th>
+                                        <th>Tipo</th>
+                                        <th>Valor</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for transferencia in transferencias_enviadas %}
+                                    <tr>
+                                        <td>{{ transferencia.data|date:"d/m/Y H:i" }}</td>
+                                        <td>{{ transferencia.destinatario.username }}</td>
+                                        <td><span class="badge bg-info">{{ transferencia.tipo }}</span></td>
+                                        <td class="text-danger">R$ {{ transferencia.valor }}</td>
+                                        <td>
+                                            <a href="{% url 'detalhe_transferencia' transferencia.id %}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>Você ainda não realizou nenhuma transferência.
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="recebidas" role="tabpanel" aria-labelledby="recebidas-tab">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        {% if transferencias_recebidas %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Remetente</th>
+                                        <th>Tipo</th>
+                                        <th>Valor</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for transferencia in transferencias_recebidas %}
+                                    <tr>
+                                        <td>{{ transferencia.data|date:"d/m/Y H:i" }}</td>
+                                        <td>{{ transferencia.remetente.username }}</td>
+                                        <td><span class="badge bg-info">{{ transferencia.tipo }}</span></td>
+                                        <td class="text-success">R$ {{ transferencia.valor }}</td>
+                                        <td>
+                                            <a href="{% url 'detalhe_transferencia' transferencia.id %}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>Você ainda não recebeu nenhuma transferência.
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
