@@ -15,7 +15,7 @@
             <p class="lead">Bem-vindo ao seu Dashboard</p>
         </div>
         <div class="col-md-6 text-md-end">
-            <p class="mb-0">Tipo de conta: <span class="badge bg-primary">{{ perfil.get_tipo_conta_display }}</span></p>
+            <p class="mb-0">Tipo de conta: <span class="badge bg-success">{{ perfil.get_tipo_conta_display }}</span></p>
             <h3 class="mb-0">Saldo: <span id="saldo-atual" data-value="{{ perfil.saldo }}" class="{% if perfil.saldo < 0 %}text-danger{% else %}text-success{% endif %}">R$ {{ perfil.saldo }}</span></h3>
         </div>
     </div>
@@ -28,8 +28,8 @@
                         <i class="fas fa-exchange-alt dashboard-icon"></i>
                         <h5 class="card-title">Transferências</h5>
                         <p class="card-text">Realize transferências via PIX, TED ou DOC para qualquer conta.</p>
-                        <a href="{% url 'nova_transferencia' %}" class="btn btn-primary dashboard-action-btn">Nova Transferência</a>
-                        <a href="{% url 'transferencias' %}" class="btn btn-outline-secondary dashboard-action-btn mt-2">Ver Histórico</a>
+                        <a href="{% url 'nova_transferencia' %}" class="btn btn-success dashboard-action-btn">Nova Transferência</a>
+                        <a href="{% url 'transferencias' %}" class="btn btn-outline-success dashboard-action-btn mt-2">Ver Histórico</a>
                     </div>
                 </div>
             </div>
@@ -42,8 +42,8 @@
                         <i class="fas fa-credit-card dashboard-icon"></i>
                         <h5 class="card-title">Cartões</h5>
                         <p class="card-text">Visualize seus cartões, limites e faturas atuais.</p>
-                        <a href="{% url 'cartoes' %}" class="btn btn-primary dashboard-action-btn">Meus Cartões</a>
-                        <a href="{% url 'faturas' %}" class="btn btn-outline-secondary dashboard-action-btn mt-2">Ver Faturas</a>
+                        <a href="{% url 'cartoes' %}" class="btn btn-success dashboard-action-btn">Meus Cartões</a>
+                        <a href="{% url 'faturas' %}" class="btn btn-outline-success dashboard-action-btn mt-2">Ver Faturas</a>
                     </div>
                 </div>
             </div>
@@ -56,8 +56,8 @@
                         <i class="fas fa-chart-line dashboard-icon"></i>
                         <h5 class="card-title">Investimentos</h5>
                         <p class="card-text">Invista seu dinheiro e acompanhe seus rendimentos.</p>
-                        <a href="{% url 'novo_investimento' %}" class="btn btn-primary dashboard-action-btn">Novo Investimento</a>
-                        <a href="{% url 'investimentos' %}" class="btn btn-outline-secondary dashboard-action-btn mt-2">Meus Investimentos</a>
+                        <a href="{% url 'novo_investimento' %}" class="btn btn-success dashboard-action-btn">Novo Investimento</a>
+                        <a href="{% url 'investimentos' %}" class="btn btn-outline-success dashboard-action-btn mt-2">Meus Investimentos</a>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
             <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Últimas Transações</h5>
-                    <a href="{% url 'transferencias' %}" class="btn btn-sm btn-outline-primary">Ver Todas</a>
+                    <a href="{% url 'transferencias' %}" class="btn btn-sm btn-outline-success">Ver Todas</a>
                 </div>
                 <div class="card-body">
                     <div class="recent-transactions">

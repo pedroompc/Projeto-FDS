@@ -73,7 +73,7 @@
 }
 
 .transaction-item:hover {
-  background-color: rgba(13, 110, 253, 0.05);
+  background-color: #138843;
 }
 
 .transaction-item:last-child {
@@ -94,7 +94,7 @@
 }
 
 .balance-card {
-  background: linear-gradient(135deg, #0a58ca 0%, #0d6efd 100%);
+  background: linear-gradient(135deg, #138843 0%, #27cd6c 100%);
   color: white;
   border-radius: 15px;
   padding: 25px;
@@ -131,7 +131,7 @@
 }
 
 .quick-action-btn {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #138843;
   border: none;
   color: white;
   padding: 10px 15px;
@@ -141,7 +141,7 @@
 }
 
 .quick-action-btn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: #138843;
 }
 
 /* Animações para o dashboard */
