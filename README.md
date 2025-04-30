@@ -48,4 +48,12 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 - **[Quadro Jira]**
 ![image](https://github.com/user-attachments/assets/726eb792-f5bb-4009-9194-afadef60d8ba)
 
+# Screencasts
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=gLKye9mLWlw" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20CI/CD-blue?style=for-the-badge" alt="Screencast CI/CD">
+ 
+
+
    
