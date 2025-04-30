@@ -32,18 +32,14 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <span class="text-muted">Fatura Atual:</span>
-                            <span class="fw-bold text-danger">R$ {{ cartao.limite|sub:cartao.limite_disponivel }}</span>
+                            <span class="fw-bold text-danger">R$ {{ cartao.fatura_atual }}</span>
                         </div>
                     </div>
                     
                     <div class="progress mb-3" style="height: 10px;">
-                        {% with utilizado=cartao.limite|sub:cartao.limite_disponivel %}
-                        {% with percentual=utilizado|div:cartao.limite|mul:100 %}
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ percentual }}%;" 
-                             aria-valuenow="{{ percentual }}" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ cartao.percentual_utilizado }}%;" 
+                             aria-valuenow="{{ cartao.percentual_utilizado }}" aria-valuemin="0" aria-valuemax="100">
                         </div>
-                        {% endwith %}
-                        {% endwith %}
                     </div>
                     
                     <div class="d-grid">
@@ -63,21 +59,4 @@
         </div>
     {% endif %}
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    // Filtros personalizados para os cálculos na barra de progresso
-    function sub(a, b) {
-        return parseFloat(a) - parseFloat(b);
-    }
-    
-    function div(a, b) {
-        return parseFloat(a) / parseFloat(b);
-    }
-    
-    function mul(a, b) {
-        return parseFloat(a) * parseFloat(b);
-    }
-</script>
 {% endblock %}

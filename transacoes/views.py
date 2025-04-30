@@ -37,6 +37,10 @@ def transferencias(request):
     }
     return render(request, 'transacoes/transferencias.html', context)
 
+
+@login_required
+
+    
 @login_required
 def nova_transferencia(request):
     perfil = get_object_or_404(Perfil, usuario=request.user)
