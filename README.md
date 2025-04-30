@@ -40,3 +40,9 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 
 <details>
  <summary>✅Entrega 03</summary>
+
+
+ - **[BackLog Jira]**
+![image](https://github.com/user-attachments/assets/f7670c9b-787e-4a59-8cd4-c50641231c8b)
+
+   
