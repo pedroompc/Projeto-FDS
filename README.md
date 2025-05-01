@@ -62,6 +62,9 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 <p align="center">
   <a href="https://www.youtube.com/watch?v=gLKye9mLWlw" target="_blank">
     <img src="https://img.shields.io/badge/▶️%20Screencast%20CI/CD-blue?style=for-the-badge" alt="Screencast CI/CD">
+    <a href="https://youtu.be/6EH33z9slYM" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20Azure-purple?style=for-the-badge" alt="Screencast Azure">
+  </a>
  
 
 
