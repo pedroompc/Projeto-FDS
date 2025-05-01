@@ -49,7 +49,11 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 ![image](https://github.com/user-attachments/assets/726eb792-f5bb-4009-9194-afadef60d8ba)
 
 - **[Erro de Deploy no Azure]**  
-![Erro de Deploy no Azure](https://github.com/user-attachments/assets/175cf274-312a-4885-bd9e-3a566ffc0cd4)
+![image](https://github.com/user-attachments/assets/175cf274-312a-4885-bd9e-3a566ffc0cd4)
+
+- **[BugTracker]**
+  ![image](https://github.com/user-attachments/assets/c22025ce-b0bd-4e15-8169-df601487bcbb)
+
 
 
 
