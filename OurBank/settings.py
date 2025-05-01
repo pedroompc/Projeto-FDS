@@ -76,7 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'forum',
     'transacoes',
-    'user.',
+    'user',
 ]
 
 MIDDLEWARE = [
