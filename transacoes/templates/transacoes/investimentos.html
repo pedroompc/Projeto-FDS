@@ -1,5 +1,7 @@
 {% extends 'user/base.html' %}
 
+{% load math_filters %}
+
 {% block title %}Investimentos - OurBank{% endblock %}
 
 {% block content %}
@@ -28,9 +30,14 @@
                             <h3 class="mb-0">R$ 
                                 {% with total_investido=0 %}
                                     {% for investimento in investimentos %}
-                                        {% with total_investido=total_investido|add:investimento.valor_investido %}{% endwith %}
+                                        {% with novo_total=total_investido|add:investimento.valor_investido %}
+                                            {% if forloop.last %}
+                                                {{ novo_total }}
+                                            {% else %}
+                                                {% with total_investido=novo_total %}{% endwith %}
+                                            {% endif %}
+                                        {% endwith %}
                                     {% endfor %}
-                                    {{ total_investido }}
                                 {% endwith %}
                             </h3>
                         </div>
@@ -39,9 +46,14 @@
                             <h3 class="mb-0 text-success">R$ 
                                 {% with total_atual=0 %}
                                     {% for investimento in investimentos %}
-                                        {% with total_atual=total_atual|add:investimento.valor_atual %}{% endwith %}
+                                        {% with novo_total=total_atual|add:investimento.valor_atual %}
+                                            {% if forloop.last %}
+                                                {{ novo_total }}
+                                            {% else %}
+                                                {% with total_atual=novo_total %}{% endwith %}
+                                            {% endif %}
+                                        {% endwith %}
                                     {% endfor %}
-                                    {{ total_atual }}
                                 {% endwith %}
                             </h3>
                         </div>
@@ -50,9 +62,14 @@
                             <h3 class="mb-0 text-primary">R$ 
                                 {% with total_resgate=0 %}
                                     {% for investimento in investimentos %}
-                                        {% with total_resgate=total_resgate|add:investimento.valor_resgate %}{% endwith %}
+                                        {% with novo_total=total_resgate|add:investimento.valor_resgate %}
+                                            {% if forloop.last %}
+                                                {{ novo_total }}
+                                            {% else %}
+                                                {% with total_resgate=novo_total %}{% endwith %}
+                                            {% endif %}
+                                        {% endwith %}
                                     {% endfor %}
-                                    {{ total_resgate }}
                                 {% endwith %}
                             </h3>
                         </div>
