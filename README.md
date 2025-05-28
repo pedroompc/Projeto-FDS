@@ -71,4 +71,7 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 </p>
 
 </details>
-   
+
+<details>
+ <summary>✅Entrega 04</summary>
+
