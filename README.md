@@ -23,10 +23,7 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 - **João Pedro** - [jpss2@cesar.school](mailto:jpss2@cesar.school)
 - **Luana Fernandes** - [lmfg2@cesar.school](mailto:lmfg2@cesar.school) 
 
-## 📌 Entregas ✅ 
-
-<summary>✅Entrega 01</summary>
-
+## 📌 Entregas ✅  
 
 - 🎥 **[ScreenCast](https://youtu.be/nCc-PJLTWtI)**  
 - 📜 **[Histórias](https://docs.google.com/document/d/1HHwyVGDV9mDbKPOPNY3w_44t8ogTdfDoCfbXqBbPZAg/edit?tab=t.0)**  
@@ -36,7 +33,6 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 
 ![image](https://github.com/user-attachments/assets/d9bed9d7-e133-4aa6-a57e-e700b6b1cd0f)
 
-</details>
 
 <details>
  <summary>✅Entrega 03</summary>
