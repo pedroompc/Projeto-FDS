@@ -4,8 +4,13 @@
 
 {% block content %}
 <div class="row mb-4">
-    <div class="col-md-8">
+    <div class="col-8">
         <h2>Meus Cartões</h2>
+    </div>
+    <div class="col-4 text-end">
+        <a href="{% url 'adicionar_cartao' %}" class="btn btn-success">
+            <i class="fas fa-plus-circle me-2"></i>Adicionar Cartão
+        </a>
     </div>
 </div>
 
@@ -53,8 +58,13 @@
         {% endfor %}
     {% else %}
         <div class="col-12">
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle me-2"></i>Você ainda não possui cartões cadastrados.
+            <div class="alert alert-info d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-info-circle me-2"></i>Você ainda não possui cartões cadastrados.
+                </div>
+                <a href="{% url 'adicionar_cartao' %}" class="btn btn-success">
+                    <i class="fas fa-plus-circle me-1"></i>Adicionar Cartão
+                </a>
             </div>
         </div>
     {% endif %}

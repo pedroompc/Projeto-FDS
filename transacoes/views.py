@@ -26,6 +26,19 @@ class InvestimentoForm(forms.Form):
     tipo = forms.ChoiceField(label='Tipo de Investimento', choices=TIPOS_INVESTIMENTO)
     valor = forms.DecimalField(label='Valor', max_digits=10, decimal_places=2, min_value=100.00)
 
+# Nova classe de formulário para adicionar cartão
+class CartaoForm(forms.Form):
+    BANDEIRAS = [
+        ('VISA', 'Visa'),
+        ('MASTERCARD', 'Mastercard'),
+        ('ELO', 'Elo'),
+        ('AMEX', 'American Express')
+    ]
+    
+    bandeira = forms.ChoiceField(label='Bandeira', choices=BANDEIRAS)
+    limite = forms.DecimalField(label='Limite', max_digits=10, decimal_places=2, min_value=100.00)
+    dia_vencimento = forms.IntegerField(label='Dia de vencimento', min_value=1, max_value=28)
+
 @login_required
 def transferencias(request):
     transferencias_enviadas = Transferencia.objects.filter(remetente=request.user).order_by('-data')
@@ -109,17 +122,68 @@ def cartoes(request):
     return render(request, 'transacoes/cartoes.html', context)
 
 @login_required
+def adicionar_cartao(request):
+    if request.method == 'POST':
+        form = CartaoForm(request.POST)
+        if form.is_valid():
+            # Gerar número de cartão (simplificado para exemplo)
+            import random
+            numero = ''.join([str(random.randint(0, 9)) for _ in range(16)])
+            
+            # Gerar código de segurança
+            cvv = ''.join([str(random.randint(0, 9)) for _ in range(3)])
+            
+            # Data de validade (3 anos a partir de hoje)
+            data_validade = timezone.now() + timezone.timedelta(days=365*3)
+            
+            # Obter limite e definir limite disponível igual ao limite
+            limite = form.cleaned_data['limite']
+            
+            # Criar cartão
+            cartao = Cartao.objects.create(
+                usuario=request.user,
+                numero=numero,
+                bandeira=form.cleaned_data['bandeira'],
+                validade=data_validade,
+                cvv=cvv,
+                limite=limite,
+                limite_disponivel=limite,  # Definindo limite_disponivel igual ao limite
+                dia_vencimento=form.cleaned_data['dia_vencimento'],
+                ativo=True
+            )
+            
+            messages.success(request, 'Cartão adicionado com sucesso!')
+            return redirect('detalhe_cartao', cartao_id=cartao.id)
+    else:
+        form = CartaoForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'transacoes/adicionar_cartao.html', context)
+
+
+@login_required
 def detalhe_cartao(request, cartao_id):
     cartao = get_object_or_404(Cartao, id=cartao_id, usuario=request.user)
     faturas = Fatura.objects.filter(cartao=cartao).order_by('-data_vencimento')
     transacoes = Transacao.objects.filter(cartao=cartao).order_by('-data')[:10]
     
+    # Calcular valores para o template
+    fatura_atual = cartao.limite - cartao.limite_disponivel
+    percentual_utilizado = 0
+    if cartao.limite > 0:  # Evitar divisão por zero
+        percentual_utilizado = (fatura_atual / cartao.limite) * 100
+    
     context = {
         'cartao': cartao,
         'faturas': faturas,
         'transacoes': transacoes,
+        'fatura_atual': fatura_atual,
+        'percentual_utilizado': percentual_utilizado
     }
     return render(request, 'transacoes/detalhe_cartao.html', context)
+
 
 @login_required
 def faturas(request):

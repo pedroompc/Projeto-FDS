@@ -1,0 +1,57 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Adicionar Cartão - OurBank{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-8">
+        <h2>Adicionar Novo Cartão</h2>
+    </div>
+    <div class="col-4 text-end">
+        <a href="{% url 'cartoes' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Voltar
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="id_bandeira" class="form-label">{{ form.bandeira.label }}</label>
+                        <select name="{{ form.bandeira.name }}" id="id_bandeira" class="form-select">
+                            {% for choice in form.bandeira.field.choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_limite" class="form-label">{{ form.limite.label }}</label>
+                        <div class="input-group">
+                            <span class="input-group-text">R$</span>
+                            <input type="number" name="{{ form.limite.name }}" id="id_limite" class="form-control" step="0.01" min="100.00" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_dia_vencimento" class="form-label">{{ form.dia_vencimento.label }}</label>
+                        <input type="number" name="{{ form.dia_vencimento.name }}" id="id_dia_vencimento" class="form-control" min="1" max="28" required>
+                        <div class="form-text">Dia do mês em que a fatura vence (1-28)</div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check-circle me-2"></i>Solicitar Cartão
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -14,12 +14,21 @@ class Transferencia(models.Model):
         return f'{self.remetente.username} → {self.destinatario.username}: R${self.valor}'
 
 class Cartao(models.Model):
+    BANDEIRAS = [
+        ('VISA', 'Visa'),
+        ('MASTERCARD', 'Mastercard'),
+        ('ELO', 'Elo'),
+        ('AMEX', 'American Express')
+    ]
+    
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cartoes')
     numero = models.CharField(max_length=16)
+    bandeira = models.CharField(max_length=20, choices=BANDEIRAS, default='VISA')
     validade = models.DateField()
     cvv = models.CharField(max_length=3)
     limite = models.DecimalField(max_digits=10, decimal_places=2)
     limite_disponivel = models.DecimalField(max_digits=10, decimal_places=2)
+    dia_vencimento = models.IntegerField(default=10)
     ativo = models.BooleanField(default=True)
     
     def __str__(self):
@@ -45,10 +54,6 @@ class Transacao(models.Model):
     
     def __str__(self):
         return f'{self.estabelecimento}: R${self.valor}'
-
-from django.db import models
-from django.contrib.auth.models import User
-from django.utils import timezone
 
 class Investimento(models.Model):
     TIPOS_INVESTIMENTO = [
