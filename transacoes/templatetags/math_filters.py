@@ -1,5 +1,3 @@
-# Create this file at transacoes/templatetags/math_filters.py
-
 from django import template
 
 register = template.Library()
@@ -11,27 +9,30 @@ def sub(value, arg):
         return float(value) - float(arg)
     except (ValueError, TypeError):
         return value
-
+        
 @register.filter
 def div(value, arg):
     """Divide the value by the arg."""
     try:
         return float(value) / float(arg)
     except (ValueError, TypeError, ZeroDivisionError):
-        return 0
-    
+        return value
+
 @register.filter
 def mul(value, arg):
-    """Multiply the value by the arg."""
+    """Multiply the value with the arg."""
     try:
         return float(value) * float(arg)
     except (ValueError, TypeError):
-        return 0
+        return value
 
 @register.filter
-def percentage(value):
-    """Format the value as a percentage with 2 decimal places."""
+def get_item(list_or_dict, key_or_index):
+    """
+    Get an item from a list by index or from a dictionary by key.
+    Used like: {{ mylist|get_item:index }}
+    """
     try:
-        return f"{float(value):.2f}%"
-    except (ValueError, TypeError):
-        return "0.00%"
+        return list_or_dict[key_or_index]
+    except (IndexError, KeyError, TypeError):
+        return None
