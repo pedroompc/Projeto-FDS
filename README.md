@@ -51,7 +51,7 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 - **[Erro de Deploy no Azure]**  
 ![image](https://github.com/user-attachments/assets/175cf274-312a-4885-bd9e-3a566ffc0cd4)
 
-- **[BugTracker]**
+- **[Issue/BugTracker]**
   ![image](https://github.com/user-attachments/assets/c22025ce-b0bd-4e15-8169-df601487bcbb)
 
 
@@ -74,4 +74,23 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 
 <details>
  <summary>✅Entrega 04</summary>
+
+- **[Issue/BugTracker]**
+![image](https://github.com/user-attachments/assets/933f5908-724c-4d50-9f04-8f060c0bfdef)
+
+- **[Programação em Par Atualizado]**
+
+## 🔗 [Relato da Programação em Par Atualizado](https://docs.google.com/document/d/1EMnD4NG0HCEG0LkqsvlfRbLx0PKHA9Holyq0s91XbHM/edit?usp=sharing)
+
+- **[Quadro Jira 04]**
+
+
+- **[ScreenCast Protótipo Figma]**
+
+## 📺 [ScreenCast Figma](https://youtu.be/nCc-PJLTWtI)
+
+- **[ScreenCast Testes Automatizados]**
+
+
+- **[ScreenCast Uso da Azure]**
 
