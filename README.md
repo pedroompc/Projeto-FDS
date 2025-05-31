@@ -83,6 +83,9 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 ## 🔗 [Relato da Programação em Par Atualizado](https://docs.google.com/document/d/1EMnD4NG0HCEG0LkqsvlfRbLx0PKHA9Holyq0s91XbHM/edit?usp=sharing)
 
 - **[Quadro Jira 04]**
+  ![image](https://github.com/user-attachments/assets/092ee06e-e956-4905-8a9c-82d7606dad54)
+  ![image](https://github.com/user-attachments/assets/95075b25-a534-4089-aa91-689ed07c00a3)
+
 
 
 - **[ScreenCast Protótipo Figma]**
