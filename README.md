@@ -92,7 +92,7 @@ O **OurBank** é um sistema bancário digital que permite aos usuários realizar
 
 ## 📺 [ScreenCast Figma](https://youtu.be/nCc-PJLTWtI)
 
-##  🧪[ScreenCast Testes Automatizados](https://youtu.be/tgyYksqbCFo)
+##  🧪[ScreenCast Testes Automatizados]([https://youtu.be/tgyYksqbCFo](https://youtu.be/8Ek5N1Ll_2U))
 
-##  ☁️[ScreenCast Uso CI/CD](https://youtu.be/8Ek5N1Ll_2U)
+##  ☁️[ScreenCast Uso CI/CD]()
 
