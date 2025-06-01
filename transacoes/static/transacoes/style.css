@@ -20,7 +20,7 @@ body {
 }
 
 h1 {
-    color: #1e40af;
+    color: #138843;
     text-align: center;
     margin-bottom: 10px;
 }
@@ -53,13 +53,13 @@ input[type="number"] {
 
 input[type="text"]:focus,
 input[type="number"]:focus {
-    border-color: #1e40af;
+    border-color: #138843;
     outline: none;
 }
 
 button {
     padding: 12px;
-    background-color: #1e40af;
+    background-color: #138843;
     color: white;
     border: none;
     border-radius: 10px;
@@ -69,7 +69,7 @@ button {
 }
 
 button:hover {
-    background-color: #1e3a8a;
+    background-color: #138843;
 }
 
 .mensagem-sucesso {
@@ -83,14 +83,14 @@ button:hover {
     display: block;
     text-align: center;
     margin-top: 25px;
-    color: #1e40af;
+    color: #138843;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
 }
 
 .voltar-home:hover {
-    color: #1e3a8a;
+    color: #138843;
 }
 /* Animação de fade-in */
 @keyframes fadeIn {
