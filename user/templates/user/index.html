@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -32,6 +34,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1e7341;">
         <div class="container">
+            <img src="{% static 'img/ourbank-logobranco.png' %}" alt="OurBank" height="80" class="me-2">
             <a class="navbar-brand" href="{% url 'index' %}">OurBank</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -99,8 +102,8 @@
                 <a href="{% url 'registro' %}" class="btn btn-primary">Comece agora</a>
             </div>
             <div class="col-md-6">
-                <img src="https://via.placeholder.com/600x400" alt="OurBank App" class="img-fluid rounded">
-            </div>
+                <img src="{% static 'img/ourbank_logo.png' %}" alt="OurBank" height="200" class="me-2">
+           </div>
         </div>
     </div>
 
